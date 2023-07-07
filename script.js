@@ -70,4 +70,11 @@ function renderResults() {
     ul.appendChild(li);
   }
 }
-let 
+let wineGlass = new Product('Wine Glass', 'images/wine-glass.jpg');
+let chair = new Product('Chair', 'images/chair.jpg');
+let waterCan = new Product('Water Can', 'images/water-can.jpg');
+
+
+renderProducts();
+
+productContainer.addEventListener('click', handleProductClick);
