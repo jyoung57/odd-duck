@@ -8,9 +8,10 @@ let image3 = document.querySelector('section img:nth-child(3)');
 
 let clicks = 0;
 let maxClicksAllowed = 25;
-
+let uniqueImageCount = 6;
 const state = {
   allProductsArray: [],
+  indexArray: [],
 };
 
 function Product(name, src) {
@@ -25,20 +26,15 @@ function getRandomNumber() {
 }
 
 function renderProducts() {
-  let product1 = getRandomNumber();
-  let product2 = getRandomNumber();
-  let product3 = getRandomNumber();
-  while (
-    product1 === product2 ||
-    product2 === product3 ||
-    product1 === product3
-  ) {
-    if (product1 === product2 || product2 === product3) {
-      product2 = getRandomNumber();
-    } else if (product1 === product3) {
-      product3 = getRandomNumber();
+  while (state.indexArray.length < uniqueImageCount) {
+    let randomNumber = getRandomNumber();
+    if (!state.indexArray.includes(randomNumber)) {
+      state.indexArray.push(randomNumber);
     }
   }
+  let product1 = state.indexArray.shift();
+  let product2 = state.indexArray.shift();
+  let product3 = state.indexArray.shift();
 
   image1.src = state.allProductsArray[product1].src;
   console.log(image1);
@@ -51,7 +47,7 @@ function renderProducts() {
   state.allProductsArray[product2].views++;
   state.allProductsArray[product3].views++;
 }
-function handleProductClick(event) { 
+function handleProductClick(event) {
   if (event.target === productContainer) {
     alert('Please click on an image');
   }
@@ -66,21 +62,67 @@ function handleProductClick(event) {
   }
   if (clicks === maxClicksAllowed) {
     productContainer.removeEventListener('click', handleProductClick);
-    resultButton.addEventListener('click', renderResults);
-    resultButton.className = 'clicks-allowed';
+    renderChart();
     productContainer.className = 'no-voting';
   } else {
     renderProducts();
   }
 }
-function renderResults() {
-  let ul = document.querySelector('ul');
+// function renderResults() {
+//   let ul = document.querySelector('ul');
+//   for (let i = 0; i < state.allProductsArray.length; i++) {
+//     let li = document.createElement('li');
+//     li.textContent = `${state.allProductsArray[i].name} had ${state.allProductsArray[i].views} views and was clicked ${state.allProductsArray[i].clicks} times.`;
+//     ul.appendChild(li);
+//   }
+// }
+
+function renderChart() {
+  let productName = [];
+  let productClick = [];
+  let productView = [];
+
   for (let i = 0; i < state.allProductsArray.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = `${state.allProductsArray[i].name} had ${state.allProductsArray[i].views} views and was clicked ${state.allProductsArray[i].clicks} times.`;
-    ul.appendChild(li);
+    productName.push(state.allProductsArray[i].name);
+    productClick.push(state.allProductsArray[i].clicks);
+    productView.push(state.allProductsArray[i].views);
   }
+
+  const chartData = {
+    labels: productName,
+    datasets: [
+      {
+        label: 'Views',
+        data: productView,
+        backgroundColor: ['rgba(255, 98, 140, 0.3)'],
+        borderColor: ['rgb(255, 98, 132)'],
+        borderWidth: 1,
+      },
+      {
+        label: 'Click(s)',
+        data: productClick,
+        backgroundColor: ['rgba(200, 140, 72, 0.2)'],
+        borderColor: ['rgb(255, 158, 64)'],
+        borderWidth: 1,
+      },
+    ],
+  };
+  const config = {
+    type: 'bar',
+    data: chartData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  };
+  let chartCanvas = document.getElementById('myChart').getContext('2d');
+  const myChart = new Chart(chartCanvas, config);
 }
+
+
 let wineGlass = new Product('Wine Glass', 'images/wine-glass.jpg');
 let chair = new Product('Chair', 'images/chair.jpg');
 let waterCan = new Product('Water Can', 'images/water-can.jpg');
@@ -100,9 +142,26 @@ let shark = new Product('Shark', 'images/shark.jpg');
 let sweep = new Product('Sweep', 'images/sweep.png');
 let bag = new Product('Bag', 'images/bag.jpg');
 
-
-state.allProductsArray.push(wineGlass, chair, waterCan, bag, banana, bathroom, boots, breakfast, bubblegum, cthulhu, dragon, pen, pet, tauntaun, unicorn, scissors, shark, sweep);
-console.log(state.allProductsArray);
+state.allProductsArray.push(
+  wineGlass,
+  chair,
+  waterCan,
+  bag,
+  banana,
+  bathroom,
+  boots,
+  breakfast,
+  bubblegum,
+  cthulhu,
+  dragon,
+  pen,
+  pet,
+  tauntaun,
+  unicorn,
+  scissors,
+  shark,
+  sweep
+);
 
 renderProducts();
 

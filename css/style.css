@@ -25,12 +25,14 @@ section img {
 }
 
 section + div {
-  border-radius: 40vw;
+ 
   padding: 0.5rem 1rem;
-  border: 1px solid black;
-  width: max-content;
   margin-top: 3rem;
   font-size: 35px;
+}
+
+canvas {
+  width: 100%;
 }
 
 h1 {
