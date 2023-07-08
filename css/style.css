@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  width: 80%;
+  margin: 3rem auto;
+}
+
+section {
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 1fr 10% 1fr;
+  grid-template-rows: 14rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+section img {
+  width: 300px;
+  max-height: 20rem;
+  border: solid 5px transparent;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+section + div {
+border-radius: 40vw;
+padding: .5rem 1rem;
+border: 1px solid black;
+width: max-content;
+margin-top: 3rem;
+}
