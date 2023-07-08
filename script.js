@@ -27,11 +27,13 @@ function renderProducts() {
   let product1 = getRandomNumber();
   let product2 = getRandomNumber();
   let product3 = getRandomNumber();
-  while (product1===product2) {
-    product2 = getRandomNumber();
-  }
-  while (product2===product3) {
-    product3 = getRandomNumber();
+  while (product1===product2 || product2 === product3 || product1 === product3) {
+    if ( product1 === product2 || product2 === product3) {
+      product2 = getRandomNumber();
+    
+    } else if (product1 === product3) {
+      product3 = getRandomNumber();
+    }
   }
   image1.src = state.allProductsArray[product1].src;
   image2.src = state.allProductsArray[product2].src;
