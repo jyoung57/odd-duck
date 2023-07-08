@@ -10,19 +10,24 @@ main {
 section {
   border: 1px solid black;
   display: grid;
-  grid-template-columns: 1fr 10% 1fr 40% 1fr 1fr 1fr;
-  grid-template-rows: 14rem 3rem 6rem 6rem 6rem;
+  grid-template-columns: 1fr 10% 1fr;
+  grid-template-rows: 14rem;
+  display: flex;
+  justify-content: space-between;
 }
 
-img:nth-child(1) {
-  background-color: pink;
+section img {
+  width: 300px;
+  max-height: 20rem;
+  border: solid 5px transparent;
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
-img:nth-child(2) {
-  background-color: red;
+section + div {
+border-radius: 40vw;
+padding: .5rem 1rem;
+border: 1px solid black;
+width: max-content;
+margin-top: 3rem;
 }
-
-img:nth-child(:last-child) {
-  background-color: blueviolet;
-}
-

@@ -51,7 +51,7 @@ function renderProducts() {
   state.allProductsArray[product2].views++;
   state.allProductsArray[product3].views++;
 }
-function handleProductClick(event) {
+function handleProductClick(event) { 
   if (event.target === productContainer) {
     alert('Please click on an image');
   }
@@ -60,7 +60,7 @@ function handleProductClick(event) {
   let clickProduct = event.target.alt;
   for (let i = 0; i < state.allProductsArray.length; i++) {
     if (clickProduct === state.allProductsArray[i].name) {
-      state.allProductsArray[i].click++;
+      state.allProductsArray[i].clicks++;
       break;
     }
   }
@@ -77,15 +77,31 @@ function renderResults() {
   let ul = document.querySelector('ul');
   for (let i = 0; i < state.allProductsArray.length; i++) {
     let li = document.createElement('li');
-    li.textContent = `${state.allProductsArray[i].name} had ${state.allProductsArray[i].views} views and was clicked ${state.allProductsArray[i].click} times.`;
+    li.textContent = `${state.allProductsArray[i].name} had ${state.allProductsArray[i].views} views and was clicked ${state.allProductsArray[i].clicks} times.`;
     ul.appendChild(li);
   }
 }
 let wineGlass = new Product('Wine Glass', '/images/wine-glass.jpg');
 let chair = new Product('Chair', '/images/chair.jpg');
 let waterCan = new Product('Water Can', '/images/water-can.jpg');
+let banana = new Product('Banana', '/images/banana.jpg');
+let bathroom = new Product('Tissue Stand', '/images/bathroom.jpg');
+let boots = new Product('Boots', '/images/boots.jpg');
+let breakfast = new Product('Toaster', '/images/breakfast.jpg');
+let bubblegum = new Product('Gum', '/images/bubblegum.jpg');
+let cthulhu = new Product('Monster', '/images/cthulhu.jpg');
+let dragon = new Product('Dragon', '/images/dragon.jpg');
+let pen = new Product('Pen Cutlery', '/images/pen.jpg');
+let pet = new Product('Pet Sweeper', '/images/pet-sweep.jpg');
+let tauntaun = new Product('Sleeping Bag', '/images/tauntaun.jpg');
+let unicorn = new Product('Unicorn Meat', '/images/unicorn.jpg');
+let scissors = new Product('Pizza Cutter', '/images/scissors.jpg');
+let shark = new Product('Shark', '/images/shark.jpg');
+let sweep = new Product('Sweep', '/images/sweep.png');
 let bag = new Product('Bag', '/images/bag.jpg');
-state.allProductsArray.push(wineGlass, chair, waterCan, bag);
+
+
+state.allProductsArray.push(wineGlass, chair, waterCan, bag, banana, bathroom, boots, breakfast, bubblegum, cthulhu, dragon, pen, pet, tauntaun, unicorn, scissors, shark, sweep);
 console.log(state.allProductsArray);
 
 renderProducts();
