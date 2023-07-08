@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  width: 80%;
+  margin: 3rem auto;
+}
+
+section {
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 1fr 10% 1fr 40% 1fr 1fr 1fr;
+  grid-template-rows: 14rem 3rem 6rem 6rem 6rem;
+}
+
+img:nth-child(1) {
+  background-color: pink;
+}
+
+img:nth-child(2) {
+  background-color: red;
+}
+
+img:nth-child(:last-child) {
+  background-color: blueviolet;
+}
+
