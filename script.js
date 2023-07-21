@@ -43,11 +43,20 @@ function renderProducts() {
   image1.alt = state.allProductsArray[product1].name;
   image2.alt = state.allProductsArray[product2].name;
   image3.alt = state.allProductsArray[product3].name;
-  state.allProductsArray[product1].views++;
-  state.allProductsArray[product2].views++;
-  state.allProductsArray[product3].views++;
+  let localInfo = JSON.parse(localStorage.getItem('myProd'));
+  if (localInfo) {
+    localInfo[product1].views++;
+    localInfo[product2].views++;
+    localInfo[product3].views++;
+  }
+  else {
+    state.allProductsArray[product1].views++;
+    state.allProductsArray[product2].views++;
+    state.allProductsArray[product3].views++;
+  }
 }
 function handleProductClick(event) {
+let localInfo = JSON.parse(localStorage.getItem('myProd'));
   if (event.target === productContainer) {
     alert('Please click on an image');
   }
@@ -56,12 +65,20 @@ function handleProductClick(event) {
   let clickProduct = event.target.alt;
   for (let i = 0; i < state.allProductsArray.length; i++) {
     if (clickProduct === state.allProductsArray[i].name) {
+      if (localInfo) {
+        localInfo[i].clicks++;
+        localStorage.setItem('myProd', JSON.stringify(localInfo));
+      }
       state.allProductsArray[i].clicks++;
       break;
     }
   }
   if (clicks === maxClicksAllowed) {
     productContainer.removeEventListener('click', handleProductClick);
+    if (!localInfo) {
+      let stringifyProd = JSON.stringify(state.allProductsArray);
+      localStorage.setItem('myProd', stringifyProd);
+    }
     renderChart();
     productContainer.className = 'no-voting';
   } else {
@@ -82,10 +99,12 @@ function renderChart() {
   let productClick = [];
   let productView = [];
 
+  let localInfo = JSON.parse(localStorage.getItem('myProd'));
+
   for (let i = 0; i < state.allProductsArray.length; i++) {
-    productName.push(state.allProductsArray[i].name);
-    productClick.push(state.allProductsArray[i].clicks);
-    productView.push(state.allProductsArray[i].views);
+    productName.push(localInfo[i].name);
+    productClick.push(localInfo[i].clicks);
+    productView.push(localInfo[i].views);
   }
 
   const chartData = {
@@ -121,7 +140,6 @@ function renderChart() {
   let chartCanvas = document.getElementById('myChart').getContext('2d');
   const myChart = new Chart(chartCanvas, config);
 }
-
 
 let wineGlass = new Product('Wine Glass', 'images/wine-glass.jpg');
 let chair = new Product('Chair', 'images/chair.jpg');
